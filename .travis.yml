@@ -1,0 +1,18 @@
+language: java
+
+jdk:
+  - openjdk8
+  - openjdk11
+  - openjdk13
+os:
+  - linux
+  - osx
+
+jobs:
+  include:
+    - stage: deps
+      script:
+        - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+    - stage: test
+      script:
+        - ./mvnw test -B
