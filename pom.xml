@@ -51,6 +51,10 @@
                         <image>gcr.io/distroless/java:11</image>
                     </from>
                     <to>
+                        <auth>
+                            <username>${env.REGISTRY_USERNAME}</username>
+                            <password>${env.REGISTRY_PASSWORD}</password>
+                        </auth>
                         <image>docker.io/thorsager/spring-boot-22-jib</image>
                     </to>
                     <container>

@@ -1,18 +1,22 @@
 language: java
-
+sudo: false
+cache:
+  directories:
+    - "$HOME/.m2"
 jdk:
-  - openjdk8
-  - openjdk11
   - openjdk13
 os:
   - linux
-  - osx
-
 jobs:
   include:
-    - stage: deps
-      script:
-        - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-    - stage: test
-      script:
-        - ./mvnw test -B
+    - stage: Download Deps
+      script: "./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V"
+    - stage: Compile
+      script: "./mvnw compile -DskipTests=true -Dmaven.javadoc.skip=true -B -V"
+    - stage: Test
+      script: "./mvnw test -B"
+    - stage: Build Image
+      script: "./mvnw jib:build"
+env:
+  global:
+    secure: Df2uNLAVb7FNPXkGBP4Rb8gnuzxQIO+HN69m4jqYSoSovVUUBo2Glsre4BG7hJwm8BjBfjM5njz1Y7BS8M++lTOi1GlEi2+jR8jxBYxV1sKkBmvS8RFS0ySz4nygwVAOAgYCKxaRzIjIBP8yMaSpI3lkoERhhi+ooyekmFHiwj3WM85XQLBjQb2fxE3gke8xZx5tPqZumeYmvYZ9r10RqHzNT3+3jITn9CReVpzhYzYO41fUllxHQTmPki6iEGSUq13OLlzgBo9PHwpsJb+RPJ/dv/AgwPkvpM6N/3p3sVU+mla/j/RrmfvLSscak9PMoT/NLpP6A9LWW4faCNnTb9ih0RfLMJSJ66+2CzgmpIZHvKxB6e2B7cnACIFzoEsmu6cuyMMpFXFqrmP475Ih17msrhPs2EWxBnoNdi1A18sJ71iym7wx4SgS3m397/mJ/eBY/ugHv0mXSSkop/G3x7hUpFZK8uQXImGXD0ZSy7IB9kwDujVKmVgFMQZKO1+m1epSeDW9Tyx3OGuIc6ABfxJgnNeNv33umFg+ua/Ezd+qlHpzKQNvvPIQeVr1nt5EfK0rThgEzLMJLrZRqPqJxHX9mPWTSbOa/SPtQtSE1rcbBSp2mVzY1wc30pEW26oJw+0K0RN6EBG0VRE8kMr6MUqU1vyUmnlkerq22Kj/OQc=
