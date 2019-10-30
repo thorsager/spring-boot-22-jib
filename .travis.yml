@@ -14,12 +14,11 @@ jobs:
     - stage: Compile
       script: "./mvnw compile -DskipTests=true -Dmaven.javadoc.skip=true -B -V"
     - stage: Test
-      os:
-        - osx
-        - linux
-      jdk:
-        - openjdk11
-        - openjdk13
+      matrix:
+      include:
+      - os: linux
+        - jdk: openjdk11
+        - jdk: openjdk13
       script: "./mvnw test -B"
     - stage: Build Image
       script: "./mvnw jib:build"
