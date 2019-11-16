@@ -5,6 +5,7 @@ cache:
     - "$HOME/.m2"
 jdk:
   - openjdk13
+  - openjdk14
 os:
   - linux
 jobs:
